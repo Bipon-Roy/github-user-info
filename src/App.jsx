@@ -108,25 +108,27 @@ function App() {
                 ))}
             </div>
 
-            <div className="flex items-center justify-center lg:justify-between gap-5 my-5">
-                <button
-                    className={`${
-                        currentPage === 1 ? "bg-gray-400" : "bg-blue-400"
-                    } max-w-fit px-3 rounded-3xl text-white`}
-                    onClick={handlePrevPage}
-                >
-                    Prev
-                </button>
-                <span className="font-medium">Page {currentPage}</span>
-                <button
-                    className={`${
-                        itemsPerPage * currentPage >= totalUser ? "bg-gray-400" : "bg-blue-400"
-                    }  max-w-fit px-3 rounded-3xl text-white`}
-                    onClick={handleNextPage}
-                >
-                    Next
-                </button>
-            </div>
+            {users.length > 0 && (
+                <div className="flex items-center justify-center lg:justify-between gap-5 my-5">
+                    <button
+                        className={`${
+                            currentPage === 1 ? "bg-gray-400" : "bg-blue-400"
+                        } max-w-fit px-3 rounded-3xl text-white`}
+                        onClick={handlePrevPage}
+                    >
+                        Prev
+                    </button>
+                    <span className="font-medium">Page {currentPage}</span>
+                    <button
+                        className={`${
+                            itemsPerPage * currentPage >= totalUser ? "bg-gray-400" : "bg-blue-400"
+                        }  max-w-fit px-3 rounded-3xl text-white`}
+                        onClick={handleNextPage}
+                    >
+                        Next
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
