@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import GitHubCalendar from "react-github-calendar";
 import "./App.css";
 function App() {
@@ -6,34 +6,27 @@ function App() {
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalUser, setTotalUser] = useState(null);
-    const [userName, setUserName] = useState(null);
     const itemsPerPage = 10;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const searchValue = e.target.user.value;
-        setUserName(searchValue);
+        const userName = e.target.user.value;
         setLoading(true);
+
+        fetch(
+            `https://api.github.com/search/users?q=${userName}&per_page=${itemsPerPage}&page=${currentPage}`
+        )
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                setTotalUser(res.total_count);
+                setUsers(res.items);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
-
-    useEffect(() => {
-        if (userName) {
-            fetch(
-                `https://api.github.com/search/users?q=${userName}&per_page=${itemsPerPage}&page=${currentPage}`
-            )
-                .then((res) => res.json())
-                .then((res) => {
-                    console.log(res);
-                    setTotalUser(res.total_count);
-                    setUsers(res.items);
-                    setLoading(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }
-    }, [currentPage, userName]);
-
     const handlePrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage((prevPage) => prevPage - 1);
@@ -68,12 +61,9 @@ function App() {
                 </form>
             </div>
             <div>
-                {users.length > 0 && (
-                    <p className="text-center my-3">
-                        <span className="text-blue-600 font-medium">{totalUser}</span> User Found
-                    </p>
-                )}
-
+                <p className="text-center my-3">
+                    <span className="text-blue-600 font-semibold">{totalUser}</span> User Found
+                </p>
                 {users.map((user) => (
                     <div
                         className="my-8 shadow-md rounded-md max-w-fit mx-auto  p-8"
