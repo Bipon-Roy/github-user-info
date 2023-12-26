@@ -1,0 +1,11 @@
+/* Add this CSS to your stylesheet or inline styles */
+.responsive-calendar {
+    width: 100%;
+    max-width: 400px; /* Adjust the max-width as needed */
+}
+
+@media screen and (min-width: 600px) {
+    .responsive-calendar {
+        max-width: 600px; /* Adjust the max-width as needed for larger screens */
+    }
+}
