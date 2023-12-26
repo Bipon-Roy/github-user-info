@@ -110,14 +110,18 @@ function App() {
 
             <div className="flex items-center justify-center lg:justify-between gap-5 my-5">
                 <button
-                    className="font-medium bg-blue-400 text-white max-w-fit px-3 rounded-3xl"
+                    className={`${
+                        currentPage === 1 ? "bg-gray-400" : "bg-blue-400"
+                    } max-w-fit px-3 rounded-3xl text-white`}
                     onClick={handlePrevPage}
                 >
                     Prev
                 </button>
                 <span className="font-medium">Page {currentPage}</span>
                 <button
-                    className="font-medium bg-blue-400 text-white max-w-fit px-3 rounded-3xl"
+                    className={`${
+                        itemsPerPage * currentPage >= totalUser ? "bg-gray-400" : "bg-blue-400"
+                    }  max-w-fit px-3 rounded-3xl text-white`}
                     onClick={handleNextPage}
                 >
                     Next
