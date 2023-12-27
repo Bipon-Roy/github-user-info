@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import GitHubCalendar from "react-github-calendar";
 import "./App.css";
+
 function App() {
+    //state declarations
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalUser, setTotalUser] = useState(null);
     const [userName, setUserName] = useState(null);
+
+    //showing 10 users data per page
     const itemsPerPage = 10;
 
+    //form handling
     const handleSubmit = (e) => {
         e.preventDefault();
         const searchValue = e.target.user.value;
@@ -16,6 +21,7 @@ function App() {
         setLoading(true);
     };
 
+    //fetching github users info
     useEffect(() => {
         if (userName) {
             fetch(
@@ -34,6 +40,7 @@ function App() {
         }
     }, [currentPage, userName]);
 
+    //handling next and previous btn
     const handlePrevPage = () => {
         if (currentPage > 1) {
             setCurrentPage((prevPage) => prevPage - 1);
@@ -43,15 +50,18 @@ function App() {
     const handleNextPage = () => {
         setCurrentPage((prevPage) => prevPage + 1);
     };
+
+    //showing a loading animation if data fetching takes time
     if (loading) {
         return (
-            <div className="flex justify-center items-center">
+            <div className="flex justify-center items-center h-screen">
                 <span className="loading loading-bars loading-lg"></span>
             </div>
         );
     }
     return (
         <div className="max-w-7xl mx-auto">
+            {/* form section */}
             <div className="mt-10 rounded shadow-md md:w-[70%] mx-auto">
                 <form onSubmit={handleSubmit}>
                     <div className="p-6 flex justify-center">
@@ -67,13 +77,14 @@ function App() {
                     </div>
                 </form>
             </div>
+            {/* conditionally showing total users number after hitting search button  */}
             <div>
                 {users.length > 0 && (
                     <p className="text-center my-3">
                         <span className="text-blue-600 font-medium">{totalUser}</span> User Found
                     </p>
                 )}
-
+                {/* showing all users contribution graph and some info */}
                 {users.map((user) => (
                     <div
                         className="my-8 shadow-md rounded-md max-w-fit mx-auto  p-8"
@@ -107,7 +118,7 @@ function App() {
                     </div>
                 ))}
             </div>
-
+            {/* conditionally showing buttons for pagination after fetching */}
             {users.length > 0 && (
                 <div className="flex items-center justify-center lg:justify-between gap-5 my-5">
                     <button

@@ -10,12 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.15.0",
-    "axios": "^1.6.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-github-calendar": "^4.0.8",
-    "react-github-contribution-graph": "^1.3.0"
+    "react-github-calendar": "^4.0.8"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
